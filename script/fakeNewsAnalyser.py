@@ -16,15 +16,17 @@ def fakeNewsAnalyse(url):
 
     if UrlAnalyse(url):
         fiability += 5
-        print("UrlAnalyse : Ok !")
-    else:
-        print("UrlAnalyse : not ok")
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
 
 
 def UrlAnalyse(url):
-    return "https" in url
+
+    if "https" in url:
+        print("UrlAnalyse : Ok !")
+        return True
+    else:
+        print("UrlAnalyse : not ok")
 
 
 fakeNewsAnalyse('https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/')
