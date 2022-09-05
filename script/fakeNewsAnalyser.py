@@ -13,9 +13,10 @@ def fakeNewsAnalyse(url):
     codeSource = getSourceCode(url)
 
     fiability = 0
+    analysePercent = 5
 
     if UrlAnalyse(url):
-        fiability += 5
+        fiability += analysePercent
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
 
