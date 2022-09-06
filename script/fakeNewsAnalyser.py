@@ -6,7 +6,7 @@ def getSourceCode(url):
 
     r = requests.get(url, cookies=cd)
     codeSource = r.content
-    return codeSource
+    return str(codeSource)
 
 
 def fakeNewsAnalyse(url):
