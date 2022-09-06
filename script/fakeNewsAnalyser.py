@@ -54,13 +54,6 @@ def supprBalise(sourceCode):
                     sourceCodeTmp.remove
 
 
-print(SupprHeaderFooter("https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/"))
-
-
-
-
-
-
 def AuthorAnalyse(code):
     tab = str(code).split("<")
     author = False
@@ -89,8 +82,12 @@ def AuthorAnalyse(code):
 
 
 def site_reconnu(url):
-    if ".gouv.fr" in url or ".asso.fr" in url or ".org" in url :
-        return True
+
+    siteConnu = [".gouv.fr", ".asso.fr", ".org"]
+
+    for i in siteConnu:
+        if i in url:
+            return True
 
 
 fakeNewsAnalyse('https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/')
