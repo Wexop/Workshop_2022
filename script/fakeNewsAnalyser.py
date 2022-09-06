@@ -23,7 +23,7 @@ def fakeNewsAnalyse(url):
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
 
-    return str(fiability)
+    return str(int(fiability)) + "%"
 
 
 def UrlAnalyse(url):
