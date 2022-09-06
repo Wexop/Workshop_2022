@@ -16,16 +16,15 @@ def fakeNewsAnalyse(url):
     analysePercent = 5
     authorPercent = 10
 
-    if site_fiable(url) :
+    if site_fiable(url):
         fiability = 75
 
     if UrlAnalyse(url):
         fiability += analysePercent
     fiability += AuthorAnalyse(codeSource) * authorPercent
 
-    if site_reconnu(url) :
+    if site_reconnu(url):
         fiability = 99.99
-
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
 
@@ -39,6 +38,7 @@ def UrlAnalyse(url):
     else:
         print("UrlAnalyse : not ok")
 
+
 def SupprHeaderFooter(url):
     sourceCode = str(getSourceCode(url))
     sourceCode = sourceCode.split("</header>")
@@ -46,6 +46,7 @@ def SupprHeaderFooter(url):
     sourceCode = sourceCode.split("<footer>")
     sourceCode = str(sourceCode[0])
     return sourceCode
+
 
 def supprBalise(sourceCode):
     tmp = ""
@@ -85,21 +86,24 @@ def AuthorAnalyse(code):
 
 
 def site_reconnu(url):
-
     siteConnu = [".gouv.fr", ".asso.fr", ".org"]
 
     for i in siteConnu:
         if i in url:
             return True
 
-def site_fiable(url) :
 
-    siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr", "leparisien.fr" , "actu.fr",
-                  "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr", "franceinter.fr", "rfi.fr", "ladepeche.fr",
+def site_fiable(url):
+    siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr",
+                  "leparisien.fr", "actu.fr",
+                  "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr",
+                  "franceinter.fr", "rfi.fr", "ladepeche.fr",
                   "france24.com", "franceculture.fr", "letelegramme.fr"]
 
     for i in siteFiable:
         if i in url:
             return True
 
-fakeNewsAnalyse('https://www.ladepeche.fr/2022/09/06/video-polemique-sur-les-jets-prives-on-se-reveille-deconnexion-consternante-la-reponse-de-christophe-galtier-sur-les-deplacements-du-psg-passe-mal-10525893.php')
+
+fakeNewsAnalyse(
+    'https://www.ladepeche.fr/2022/09/06/video-polemique-sur-les-jets-prives-on-se-reveille-deconnexion-consternante-la-reponse-de-christophe-galtier-sur-les-deplacements-du-psg-passe-mal-10525893.php')
