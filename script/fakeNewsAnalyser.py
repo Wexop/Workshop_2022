@@ -84,7 +84,7 @@ def AuthorAnalyse(code):
 
 
 def site_reconnu(url):
-    siteConnu = [".gouv.fr", ".asso.fr", ".org"]
+    siteConnu = [".gouv.fr", ".asso.fr"]
 
     for i in siteConnu:
         if i in url:
@@ -104,4 +104,4 @@ def site_fiable(url):
 
 
 fakeNewsAnalyse(
-    'https://stackoverflow.com/questions/30011170/flask-application-how-to-link-a-javascript-file-to-website')
+    'https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin')
