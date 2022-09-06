@@ -20,6 +20,9 @@ def fakeNewsAnalyse(url):
         fiability += analysePercent
     fiability += AuthorAnalyse(codeSource) * authorPercent
 
+    if site_reconnu(url) :
+        fiability = 99.99
+
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
 
@@ -85,6 +88,9 @@ def AuthorAnalyse(code):
     return fiabilty
 
 
+def site_reconnu(url):
+    if ".gouv.fr" in url or ".asso.fr" in url or ".org" in url :
+        return True
 
 
 fakeNewsAnalyse('https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/')
