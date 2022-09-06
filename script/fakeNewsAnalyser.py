@@ -15,11 +15,12 @@ def fakeNewsAnalyse(url):
     fiability = 0
     analysePercent = 5
     authorPercent = 10
+    urlIsSafe = UrlAnalyse(url)
 
     if site_fiable(url):
         fiability = 75
 
-    if UrlAnalyse(url):
+    if urlIsSafe:
         fiability += analysePercent
     fiability += AuthorAnalyse(codeSource) * authorPercent
 
@@ -28,7 +29,14 @@ def fakeNewsAnalyse(url):
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
 
-    return str(int(fiability)) + "%"
+    siteInformations = {
+        "fiability": str(int(fiability)) + "%",
+        "info": {
+            "urlIsSafe": urlIsSafe
+        }
+    }
+
+    return siteInformations
 
 
 def UrlAnalyse(url):
@@ -37,6 +45,7 @@ def UrlAnalyse(url):
         return True
     else:
         print("UrlAnalyse : not ok")
+        return False
 
 
 def SupprHeaderFooter(url):
