@@ -6,7 +6,7 @@ def getSourceCode(url):
 
     r = requests.get(url, cookies=cd)
     codeSource = r.content
-    return codeSource
+    return str(codeSource)
 
 
 def fakeNewsAnalyse(url):
@@ -15,15 +15,34 @@ def fakeNewsAnalyse(url):
     fiability = 0
     analysePercent = 5
     authorPercent = 10
+    urlIsSafe = UrlAnalyse(url)
 
-    if UrlAnalyse(url):
+    if site_fiable(url):
+        fiability = 75
+
+    if urlIsSafe:
         fiability += analysePercent
-    fiability += AuthorAnalyse(codeSource) * authorPercent
 
+    authorAnalyse = AuthorAnalyse(codeSource)
+    fiability += authorAnalyse * authorPercent
+    authorLink = authorAnalyse == 1
+    authorFound = authorAnalyse == 0.5 or authorLink
+
+    if site_reconnu(url):
+        fiability = 99.99
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
 
-    return str(int(fiability)) + "%"
+    siteInformations = {
+        "fiability": str(int(fiability)) + "%",
+        "info": {
+            "urlIsSafe": urlIsSafe,
+            "authorFound": authorFound,
+            "authorLink" : authorLink
+        }
+    }
+
+    return siteInformations
 
 
 def UrlAnalyse(url):
@@ -32,6 +51,8 @@ def UrlAnalyse(url):
         return True
     else:
         print("UrlAnalyse : not ok")
+        return False
+
 
 
 
@@ -62,6 +83,25 @@ def AuthorAnalyse(code):
     return fiabilty
 
 
+def site_reconnu(url):
+    siteConnu = [".gouv.fr", ".asso.fr", ".org"]
+
+    for i in siteConnu:
+        if i in url:
+            return True
 
 
-fakeNewsAnalyse('https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/')
+def site_fiable(url):
+    siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr",
+                  "leparisien.fr", "actu.fr",
+                  "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr",
+                  "franceinter.fr", "rfi.fr", "ladepeche.fr",
+                  "france24.com", "franceculture.fr", "letelegramme.fr"]
+
+    for i in siteFiable:
+        if i in url:
+            return True
+
+
+fakeNewsAnalyse(
+    'https://stackoverflow.com/questions/30011170/flask-application-how-to-link-a-javascript-file-to-website')
