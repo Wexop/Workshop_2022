@@ -22,7 +22,11 @@ def fakeNewsAnalyse(url):
 
     if urlIsSafe:
         fiability += analysePercent
-    fiability += AuthorAnalyse(codeSource) * authorPercent
+
+    authorAnalyse = AuthorAnalyse(codeSource)
+    fiability += authorAnalyse * authorPercent
+    authorLink = authorAnalyse == 1
+    authorFound = authorAnalyse == 0.5 or authorLink
 
     if site_reconnu(url):
         fiability = 99.99
@@ -32,7 +36,9 @@ def fakeNewsAnalyse(url):
     siteInformations = {
         "fiability": str(int(fiability)) + "%",
         "info": {
-            "urlIsSafe": urlIsSafe
+            "urlIsSafe": urlIsSafe,
+            "authorFound": authorFound,
+            "authorLink" : authorLink
         }
     }
 
@@ -115,4 +121,4 @@ def site_fiable(url):
 
 
 fakeNewsAnalyse(
-    'https://www.ladepeche.fr/2022/09/06/video-polemique-sur-les-jets-prives-on-se-reveille-deconnexion-consternante-la-reponse-de-christophe-galtier-sur-les-deplacements-du-psg-passe-mal-10525893.php')
+    'https://stackoverflow.com/questions/30011170/flask-application-how-to-link-a-javascript-file-to-website')
