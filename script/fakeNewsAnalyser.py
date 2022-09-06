@@ -16,6 +16,9 @@ def fakeNewsAnalyse(url):
     analysePercent = 5
     authorPercent = 10
 
+    if site_fiable(url) :
+        fiability = 75
+
     if UrlAnalyse(url):
         fiability += analysePercent
     fiability += AuthorAnalyse(codeSource) * authorPercent
@@ -89,5 +92,14 @@ def site_reconnu(url):
         if i in url:
             return True
 
+def site_fiable(url) :
 
-fakeNewsAnalyse('https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/')
+    siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr", "leparisien.fr" , "actu.fr",
+                  "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr", "franceinter.fr", "rfi.fr", "ladepeche.fr",
+                  "france24.com", "franceculture.fr", "letelegramme.fr"]
+
+    for i in siteFiable:
+        if i in url:
+            return True
+
+fakeNewsAnalyse('https://www.ladepeche.fr/2022/09/06/video-polemique-sur-les-jets-prives-on-se-reveille-deconnexion-consternante-la-reponse-de-christophe-galtier-sur-les-deplacements-du-psg-passe-mal-10525893.php')
