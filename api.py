@@ -8,11 +8,11 @@ def hello():
     return render_template("main.html")
 
 
-@app.route("/tg")
+@app.route("/test")
 def autre():
     return "dqhsbdhu"
 
- 
+
 if __name__ == "__main__":
     app.debug = True
     app.run()

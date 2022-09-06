@@ -47,8 +47,14 @@ def AuthorAnalyse(code):
                 href = True
     if author:
         fiabilty += 0.5
+        print("Author is there !")
+    else:
+        print("No author found...")
     if href:
+        print("Author have a link !")
         fiabilty += 0.5
+    else:
+        print("No author link found...")
 
     return fiabilty
 
