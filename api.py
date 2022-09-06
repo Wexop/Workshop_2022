@@ -1,11 +1,14 @@
-from flask import Flask, render_template  # pip install flask
+from flask import Flask, render_template, request  # pip install flask
+from script import fakeNewsAnalyser
+from script.fakeNewsAnalyser import fakeNewsAnalyse
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def hello():
-    return render_template("main.html")
+    url = request.args.get("url")
+    return fakeNewsAnalyse(url)
 
 
 @app.route("/test")

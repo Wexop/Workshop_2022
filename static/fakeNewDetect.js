@@ -1,3 +1,5 @@
+
+
 function fakeDetector() {
     alert("oui")
 }

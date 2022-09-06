@@ -23,6 +23,8 @@ def fakeNewsAnalyse(url):
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
 
+    return str(fiability)
+
 
 def UrlAnalyse(url):
     if "https" in url:
