@@ -5,7 +5,7 @@ var callBackGetSuccess =function fakeDetector(data) {
 
 async function fetchText(url) {
 
-    var url = url
+    var url = "http://127.0.0.1:5000/?url=" + url
 
     $.get(url, callBackGetSuccess).done(function () {
         //alert( "second success" );
@@ -18,4 +18,10 @@ async function fetchText(url) {
         });
 
 
+}
+
+async function getFiablity() {
+    const url = document.getElementById("inputLink").value
+
+    await fetchText(url)
 }
