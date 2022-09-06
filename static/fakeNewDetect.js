@@ -1,6 +1,6 @@
 var callBackGetSuccess =function fakeDetector(data) {
-    console.log(data.main)
-    document.getElementById("test").innerText = data
+    console.log(data)
+    document.getElementById("text").innerText = data
 }
 
 async function fetchText(url) {
@@ -20,7 +20,7 @@ async function fetchText(url) {
 
 }
 
-async function getFiablity() {
+async function getFiablity() { 
     const url = document.getElementById("inputLink").value
 
     await fetchText(url)
