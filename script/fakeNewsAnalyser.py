@@ -33,6 +33,30 @@ def UrlAnalyse(url):
     else:
         print("UrlAnalyse : not ok")
 
+def SupprHeaderFooter(url):
+    sourceCode = str(getSourceCode(url))
+    sourceCode = sourceCode.split("</header>")
+    sourceCode = str(sourceCode[-1])
+    sourceCode = sourceCode.split("<footer>")
+    sourceCode = str(sourceCode[0])
+    return sourceCode
+
+def supprBalise(sourceCode):
+    tmp = ""
+    for char in sourceCode:
+        if char == "<":
+            sourceCodeTmp = sourceCode.split("<", 1)[1]
+            while sourceCodeTmp[0] != ">":
+                for tmp in sourceCodeTmp:
+                    sourceCodeTmp.remove
+
+
+print(SupprHeaderFooter("https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/"))
+
+
+
+
+
 
 def AuthorAnalyse(code):
     tab = str(code).split("<")
