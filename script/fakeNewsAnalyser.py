@@ -48,7 +48,6 @@ def getSubject(codeSource: str):
     sub = codeSource
 
     x = re.findall("<h1(.*?)>(.*?)<", codeSource)
-    print(x[0][1])
     return (x[0][1])
 
 
@@ -70,21 +69,26 @@ def fakeNewsAnalyse(url):
     authorLink = authorAnalyse == 1
     authorFound = authorAnalyse == 0.5 or authorLink
 
-    if site_reconnu(url):
-        fiability = 99.99
-
-
     subject = getSubject(codeSource)
-    print(searchGoogle(subject))
+    linkTab = searchGoogle(subject)
+    print(linkTab)
+
+    if len(linkTab) > 0:
+        fiability += 30
 
     siteInformations = {
         "fiability": str(int(fiability)) + "%",
         "info": {
             "urlIsSafe": urlIsSafe,
             "authorFound": authorFound,
-            "authorLink": authorLink
+            "authorLink": authorLink,
+            "webLink": linkTab
         }
     }
+
+    if site_reconnu(url) or fiability > 99:
+        fiability = 99.99
+
     print("FINAL RESULT FIABILITY : ", fiability, "%")
     return siteInformations
 
@@ -135,7 +139,7 @@ def site_fiable(url):
     for i in siteFiable:
         if i in url:
             return True
- 
+
 
 fakeNewsAnalyse(
     'https://www.lemonde.fr/idees/article/2022/09/07/le-peuple-ukrainien-a-montre-sa-capacite-a-s-autogouverner-autant-que-la-vigueur-de-ses-aspirations-democratiques_6140516_3232.html')
