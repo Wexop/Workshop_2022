@@ -53,8 +53,12 @@ def getSubject(codeSource: str):
 
 
 def getSubjectByUlr(url: str):
-    subject = url.split("/")
-    return subject[-1].replace("-", " ") + subject[-2].replace("-", " ")
+    subject = url.replace("-", " ").split("/")
+
+    if len(subject[-1] ) > 0:
+        return subject[-1]
+    else:
+        return subject[-2]
 
 
 def fakeNewsAnalyse(url):
