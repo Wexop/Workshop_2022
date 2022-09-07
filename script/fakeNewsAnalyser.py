@@ -1,5 +1,6 @@
 import requests
 from serpapi import GoogleSearch
+import re
 
 siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr",
               "leparisien.fr", "actu.fr",
@@ -43,6 +44,14 @@ def getSourceCode(url):
     return str(codeSource)
 
 
+def getSubject(codeSource: str):
+    sub = codeSource
+
+    x = re.findall("<h1(.*?)>(.*?)<", codeSource)
+    print(x[0][1])
+    return (x[0][1])
+
+
 def fakeNewsAnalyse(url):
     codeSource = getSourceCode(url)
     fiability = 0
@@ -64,7 +73,9 @@ def fakeNewsAnalyse(url):
     if site_reconnu(url):
         fiability = 99.99
 
-    print("FINAL RESULT FIABILITY : ", fiability, "%")
+
+    subject = getSubject(codeSource)
+    print(searchGoogle(subject))
 
     siteInformations = {
         "fiability": str(int(fiability)) + "%",
@@ -74,9 +85,7 @@ def fakeNewsAnalyse(url):
             "authorLink": authorLink
         }
     }
-
-    print(searchGoogle("le monde"))
-
+    print("FINAL RESULT FIABILITY : ", fiability, "%")
     return siteInformations
 
 
@@ -126,7 +135,7 @@ def site_fiable(url):
     for i in siteFiable:
         if i in url:
             return True
-
+ 
 
 fakeNewsAnalyse(
-    'https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/Access-Control-Allow-Origin')
+    'https://www.lemonde.fr/idees/article/2022/09/07/le-peuple-ukrainien-a-montre-sa-capacite-a-s-autogouverner-autant-que-la-vigueur-de-ses-aspirations-democratiques_6140516_3232.html')
