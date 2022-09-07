@@ -21,7 +21,10 @@ def searchGoogle(question):
     resultTab = []
 
     for i in result["organic_results"]:
-        resultTab.append(i["link"])
+        link = i["link"]
+        for y in siteFiable:
+            if y in link:
+                resultTab.append(link)
 
     return resultTab
 
