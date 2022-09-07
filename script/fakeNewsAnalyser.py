@@ -13,7 +13,6 @@ siteConnu = [".gouv.fr", ".asso.fr"]
 
 
 def searchGoogle(question):
-    print(question)
     search = GoogleSearch({
         "q": question,
         "location": "Paris,France",
@@ -23,7 +22,6 @@ def searchGoogle(question):
     result = search.get_dict()
 
     resultTab = []
-    print(result)
     for i in result["organic_results"]:
         link = i["link"]
         for y in siteFiable:
@@ -84,6 +82,7 @@ def fakeNewsAnalyse(url):
 
     if len(linkTab) > 0:
         fiability += 30
+        fiability += 5 * len(linkTab)
 
     if site_reconnu(url) or fiability > 99:
         fiability = 99.99
