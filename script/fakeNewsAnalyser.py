@@ -26,6 +26,12 @@ def searchGoogle(question):
             if y in link:
                 resultTab.append(link)
 
+    for i in result["organic_results"]:
+        link = i["link"]
+        for y in siteConnu:
+            if y in link:
+                resultTab.append(link)
+
     return resultTab
 
 
