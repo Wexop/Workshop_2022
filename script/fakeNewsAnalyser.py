@@ -1,4 +1,29 @@
 import requests
+from serpapi import GoogleSearch
+
+siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr",
+              "leparisien.fr", "actu.fr",
+              "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr",
+              "franceinter.fr", "rfi.fr", "ladepeche.fr",
+              "france24.com", "franceculture.fr", "letelegramme.fr"]
+
+siteConnu = [".gouv.fr", ".asso.fr"]
+
+
+def searchGoogle(question):
+    search = GoogleSearch({
+        "q": question,
+        "location": "Paris,France",
+        "api_key": "a19ab2cfa90d3c44726df8333a905109562e325cb8d669389da7adfc118cfb1a"
+    })
+    result = search.get_dict()
+
+    resultTab = []
+
+    for i in result["organic_results"]:
+        resultTab.append(i["link"])
+
+    return resultTab
 
 
 def getSourceCode(url):
@@ -11,7 +36,6 @@ def getSourceCode(url):
 
 def fakeNewsAnalyse(url):
     codeSource = getSourceCode(url)
-
     fiability = 0
     analysePercent = 5
     authorPercent = 10
@@ -38,9 +62,11 @@ def fakeNewsAnalyse(url):
         "info": {
             "urlIsSafe": urlIsSafe,
             "authorFound": authorFound,
-            "authorLink" : authorLink
+            "authorLink": authorLink
         }
     }
+
+    print(searchGoogle("le monde"))
 
     return siteInformations
 
@@ -52,8 +78,6 @@ def UrlAnalyse(url):
     else:
         print("UrlAnalyse : not ok")
         return False
-
-
 
 
 def AuthorAnalyse(code):
@@ -84,20 +108,12 @@ def AuthorAnalyse(code):
 
 
 def site_reconnu(url):
-    siteConnu = [".gouv.fr", ".asso.fr"]
-
     for i in siteConnu:
         if i in url:
             return True
 
 
 def site_fiable(url):
-    siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr",
-                  "leparisien.fr", "actu.fr",
-                  "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr",
-                  "franceinter.fr", "rfi.fr", "ladepeche.fr",
-                  "france24.com", "franceculture.fr", "letelegramme.fr"]
-
     for i in siteFiable:
         if i in url:
             return True
