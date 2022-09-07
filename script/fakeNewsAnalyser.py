@@ -59,7 +59,7 @@ def fakeNewsAnalyse(url):
     urlIsSafe = UrlAnalyse(url)
 
     if site_fiable(url):
-        fiability = 75
+        fiability = 50
 
     if urlIsSafe:
         fiability += analysePercent
@@ -70,11 +70,15 @@ def fakeNewsAnalyse(url):
     authorFound = authorAnalyse == 0.5 or authorLink
 
     subject = getSubject(codeSource)
+
     linkTab = searchGoogle(subject)
     print(linkTab)
 
     if len(linkTab) > 0:
         fiability += 30
+
+    if site_reconnu(url) or fiability > 99:
+        fiability = 99.99
 
     siteInformations = {
         "fiability": str(int(fiability)) + "%",
@@ -82,12 +86,10 @@ def fakeNewsAnalyse(url):
             "urlIsSafe": urlIsSafe,
             "authorFound": authorFound,
             "authorLink": authorLink,
-            "webLink": linkTab
+            "webLink": linkTab,
+            "subjectFound": subject
         }
     }
-
-    if site_reconnu(url) or fiability > 99:
-        fiability = 99.99
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
     return siteInformations
