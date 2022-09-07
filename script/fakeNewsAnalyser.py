@@ -16,7 +16,9 @@ def searchGoogle(question):
     search = GoogleSearch({
         "q": question,
         "location": "Paris,France",
-        "api_key": "a19ab2cfa90d3c44726df8333a905109562e325cb8d669389da7adfc118cfb1a"
+        "api_key": "a19ab2cfa90d3c44726df8333a905109562e325cb8d669389da7adfc118cfb1a",
+        "lr": "lang_fr",
+        "google_domain": "google.fr"
         })
 
     result = search.get_dict()
