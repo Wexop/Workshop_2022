@@ -54,7 +54,7 @@ def getSubject(codeSource: str):
 
 def getSubjectByUlr(url: str):
     subject = url.split("/")
-    return subject[-1] + subject[-2]
+    return subject[-1].replace("-", " ") + subject[-2].replace("-", " ")
 
 
 def fakeNewsAnalyse(url):
