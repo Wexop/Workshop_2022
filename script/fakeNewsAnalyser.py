@@ -2,6 +2,7 @@ import requests
 from serpapi import GoogleSearch
 import re
 
+
 siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr",
               "leparisien.fr", "actu.fr",
               "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr",
@@ -12,15 +13,17 @@ siteConnu = [".gouv.fr", ".asso.fr"]
 
 
 def searchGoogle(question):
+    print(question)
     search = GoogleSearch({
         "q": question,
         "location": "Paris,France",
         "api_key": "a19ab2cfa90d3c44726df8333a905109562e325cb8d669389da7adfc118cfb1a"
-    })
+        })
+
     result = search.get_dict()
 
     resultTab = []
-
+    print(result)
     for i in result["organic_results"]:
         link = i["link"]
         for y in siteFiable:
@@ -39,7 +42,7 @@ def searchGoogle(question):
 def getSourceCode(url):
     cd = {'sessionid': '123..'}
 
-    r = requests.get(url, cookies=cd)
+    r = requests.get(url, cookies = cd)
     codeSource = r.content
     return str(codeSource)
 
@@ -49,6 +52,11 @@ def getSubject(codeSource: str):
 
     x = re.findall("<h1(.*?)>(.*?)<", codeSource)
     return (x[0][1])
+
+
+def getSubjectByUlr(url: str):
+    subject = url.split("/")
+    return subject[-1] + subject[-2]
 
 
 def fakeNewsAnalyse(url):
@@ -69,7 +77,7 @@ def fakeNewsAnalyse(url):
     authorLink = authorAnalyse == 1
     authorFound = authorAnalyse == 0.5 or authorLink
 
-    subject = getSubject(codeSource)
+    subject = getSubjectByUlr(url)
 
     linkTab = searchGoogle(subject)
     print(linkTab)
@@ -88,8 +96,8 @@ def fakeNewsAnalyse(url):
             "authorLink": authorLink,
             "webLink": linkTab,
             "subjectFound": subject
+            }
         }
-    }
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
     return siteInformations
@@ -144,4 +152,4 @@ def site_fiable(url):
 
 
 fakeNewsAnalyse(
-    'https://www.lemonde.fr/idees/article/2022/09/07/le-peuple-ukrainien-a-montre-sa-capacite-a-s-autogouverner-autant-que-la-vigueur-de-ses-aspirations-democratiques_6140516_3232.html')
+    'https://www.futura-sciences.com/tech/definitions/informatique-fake-news-17092/')
