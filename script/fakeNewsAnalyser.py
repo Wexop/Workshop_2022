@@ -30,13 +30,13 @@ def searchGoogle(question, url):
     for i in result["organic_results"]:
         link = i["link"]
         for y in siteFiable:
-            if y in link and link != url:
+            if y in link and link != url and link not in resultTab:
                 resultTab.append(link)
 
     for i in result["organic_results"]:
         link = i["link"]
         for y in siteConnu:
-            if y in link and link != url:
+            if y in link and link != url and link not in resultTab:
                 resultTab.append(link)
 
     return resultTab
