@@ -2,24 +2,27 @@ import requests
 from serpapi import GoogleSearch
 import re
 
-
 siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "franceinfo.fr", "20minutes.fr",
               "leparisien.fr", "actu.fr",
               "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr",
               "franceinter.fr", "rfi.fr", "ladepeche.fr",
-              "france24.com", "franceculture.fr", "letelegramme.fr"]
+              "france24.com", "franceculture.fr", "letelegramme.fr", "bfmtv.com", "francetvinfo", "leparisien",
+              "ladepeche.fr","voici.fr", "sudouest.fr", "midilibre.fr", "lindependant.fr", "lepoint.fr" ,"cnews" ]
 
 siteConnu = [".gouv.fr", ".asso.fr"]
 
 
-def searchGoogle(question):
+def searchGoogle(question, url):
     search = GoogleSearch({
         "q": question,
         "location": "Paris,France",
         "api_key": "a19ab2cfa90d3c44726df8333a905109562e325cb8d669389da7adfc118cfb1a",
-        "lr": "lang_fr",
-        "google_domain": "google.fr"
-        })
+        "lr": "https://serpapi.com/locations.json?q=Paris&limit=5",
+        "google_domain": "google.com",
+        "hl": "fr",
+        "gl": "fr",
+        "num": 40
+    })
 
     result = search.get_dict()
 
@@ -27,13 +30,13 @@ def searchGoogle(question):
     for i in result["organic_results"]:
         link = i["link"]
         for y in siteFiable:
-            if y in link:
+            if y in link and link != url:
                 resultTab.append(link)
 
     for i in result["organic_results"]:
         link = i["link"]
         for y in siteConnu:
-            if y in link:
+            if y in link and link != url:
                 resultTab.append(link)
 
     return resultTab
@@ -42,7 +45,7 @@ def searchGoogle(question):
 def getSourceCode(url):
     cd = {'sessionid': '123..'}
 
-    r = requests.get(url, cookies = cd)
+    r = requests.get(url, cookies=cd)
     codeSource = r.content
     return str(codeSource)
 
@@ -57,7 +60,7 @@ def getSubject(codeSource: str):
 def getSubjectByUlr(url: str):
     subject = url.replace("-", " ").split("/")
 
-    if len(subject[-1] ) > 0:
+    if len(subject[-1]) > 0:
         return subject[-1]
     else:
         return subject[-2]
@@ -71,7 +74,7 @@ def fakeNewsAnalyse(url):
     urlIsSafe = UrlAnalyse(url)
 
     if site_fiable(url):
-        fiability = 50
+        fiability = 30
 
     if urlIsSafe:
         fiability += analysePercent
@@ -83,7 +86,7 @@ def fakeNewsAnalyse(url):
 
     subject = getSubjectByUlr(url)
 
-    linkTab = searchGoogle(subject)
+    linkTab = searchGoogle(subject, url)
     print(linkTab)
 
     if len(linkTab) > 0:
@@ -101,8 +104,8 @@ def fakeNewsAnalyse(url):
             "authorLink": authorLink,
             "webLink": linkTab,
             "subjectFound": subject
-            }
         }
+    }
 
     print("FINAL RESULT FIABILITY : ", fiability, "%")
     return siteInformations
