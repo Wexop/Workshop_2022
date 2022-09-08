@@ -90,14 +90,13 @@ def fakeNewsAnalyse(url):
     subject = getSubjectByUlr(url)
 
     linkTab = searchGoogle(subject, url)
-    print(linkTab)
 
     if len(linkTab) > 0:
         fiability += 15
         fiability += 15 * len(linkTab)
 
     for i in linkTab:
-        print(comparaisonTexte(url, linkTab[i]))
+        print(comparaisonTexte(url, i))
 
     if site_reconnu(url) or fiability > 99:
         fiability = 99.99
@@ -224,4 +223,4 @@ def site_fiable(url):
 
 
 fakeNewsAnalyse(
-    'https://www.futura-sciences.com/tech/definitions/informatique-fake-news-17092/')
+    'https://www.lemonde.fr/politique/article/2022/09/08/emmanuel-macron-annonce-le-lancement-d-une-grande-consultation-en-ligne-dans-le-cadre-du-conseil-national-de-la-refondation_6140686_823448.html')
