@@ -16,7 +16,7 @@ def searchGoogle(question, url):
     search = GoogleSearch({
         "q": question,
         "location": "Paris,France",
-        "api_key": "a19ab2cfa90d3c44726df8333a905109562e325cb8d669389da7adfc118cfb1a",
+        "api_key": "4733766bb169fab22d5efa83e822b6fcc3bab2555b7a48fdbad012528a846174",
         "lr": "https://serpapi.com/locations.json?q=Paris&limit=5",
         "google_domain": "google.com",
         "hl": "fr",
