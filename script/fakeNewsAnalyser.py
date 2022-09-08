@@ -74,7 +74,7 @@ def fakeNewsAnalyse(url):
     urlIsSafe = UrlAnalyse(url)
 
     if site_fiable(url):
-        fiability = 30
+        fiability = 15
 
     if urlIsSafe:
         fiability += analysePercent
@@ -90,8 +90,8 @@ def fakeNewsAnalyse(url):
     print(linkTab)
 
     if len(linkTab) > 0:
-        fiability += 30
-        fiability += 10 * len(linkTab)
+        fiability += 15
+        fiability += 15 * len(linkTab)
 
     if site_reconnu(url) or fiability > 99:
         fiability = 99.99
