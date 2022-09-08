@@ -10,7 +10,7 @@ var callBackGetSuccess =function fakeDetector(data) {
     const divContent = []
 
     for(let i = 0; i < data.info.webLink.length; i++){
-        const balise = '<a target="_blank" href= "' + data.info.webLink[i] + '" > lien ' + (i+1) + ' </a>'
+        const balise = '<a class="link" target="_blank" href= "' + data.info.webLink[i] + '" > lien ' + (i+1) + ' </a>'
         divContent.push(balise)
     }
     document.getElementById("allLinks").innerHTML = "Link related : "
