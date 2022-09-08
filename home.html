@@ -5,6 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;1,700&family=Quicksand:wght@400;700&display=swap"
+          rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="static/fakeNewDetect.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -13,15 +17,25 @@
     <title></title>
 </head>
 
-<input type="text" name="url" id="inputLink">
-<input value="yes" type="submit" id="submitLink" onclick="getFiablity()">
+<p id="Title">Détecter une fake news !</p>
+<p id="Description">Vous voulez être sûr d'une information que vous avez vu sur internet ? Testez notre détecteur de
+    fake news en indiquant un lien !</p>
 
-<p id="text"></p>
-<p id="linkIsSafe"></p>
-<p id="authorFound"></p>
-<p id="authorLink"></p>
-<p id="subjectFound"></p>
-<div id="allLinks"></div>
+<div class="container">
+    <input placeholder="Lien d'un article ici" type="text" name="url" id="inputLink">
+    <a type="submit" id="submitLink" onclick="getFiablity()">Vérifier l'article</a>
+
+    <p id="text"></p>
+    <div class="infoContainer">
+        <p id="linkIsSafe"></p>
+        <p id="authorFound"></p>
+        <p id="authorLink"></p>
+        <p id="subjectFound"></p>
+
+        <div id="allLinks"></div>
+    </div>
+</div>
+
 <body>
 </body>
 </html>

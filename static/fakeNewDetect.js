@@ -1,6 +1,6 @@
 var callBackGetSuccess =function fakeDetector(data) {
     console.log(data)
-    document.getElementById("text").innerText = data.fiability
+    document.getElementById("text").innerText = data.fiability + " fiable !"
     document.getElementById("linkIsSafe").innerText = "Link is safe : " + data.info.urlIsSafe
     document.getElementById("authorFound").innerText = "Author found : " + data.info.authorFound
     document.getElementById("authorLink").innerText = "Author have a link : " + data.info.authorLink
@@ -10,12 +10,13 @@ var callBackGetSuccess =function fakeDetector(data) {
     const divContent = []
 
     for(let i = 0; i < data.info.webLink.length; i++){
-        const balise = '<a class="link" target="_blank" href= "' + data.info.webLink[i] + '" > lien ' + (i+1) + ' </a>'
+        const balise = '<a class="link" target="_blank" href= "' + data.info.webLink[i] + '" > lien ' + (i+1) +  ' : ' + data.info.webLink[i] +' </a>'
         divContent.push(balise)
     }
     document.getElementById("allLinks").innerHTML = "Link related : "
+    document.getElementById("allLinks").innerHTML += '</br>'
     for(let i = 0; i < divContent.length; i++){
-        document.getElementById("allLinks").innerHTML += '</br>' + divContent[i]
+        document.getElementById("allLinks").innerHTML += divContent[i] + '<hr>'
     }
 
 
