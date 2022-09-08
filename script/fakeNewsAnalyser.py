@@ -7,7 +7,7 @@ siteFiable = ["lefigaro.fr", "bfmtv.fr", "ouest-france", "lemonde.fr", "francein
               "ladepeche.fr", "lci.fr", "sudouest.fr", "bouserama.fr", "lepoint.fr", "francebleu.fr", "capital.fr",
               "franceinter.fr", "rfi.fr", "ladepeche.fr",
               "france24.com", "franceculture.fr", "letelegramme.fr", "bfmtv.com", "francetvinfo", "leparisien",
-              "ladepeche.fr","voici.fr", "sudouest.fr", "midilibre.fr", "lindependant.fr", "lepoint.fr" ,"cnews" ]
+              "ladepeche.fr", "voici.fr", "sudouest.fr", "midilibre.fr", "lindependant.fr", "lepoint.fr", "cnews"]
 
 siteConnu = [".gouv.fr", ".asso.fr"]
 
@@ -41,7 +41,9 @@ def searchGoogle(question, url):
 
     return resultTab
 
+
 import regex
+
 
 def getSourceCode(url):
     cd = {'sessionid': '123..'}
@@ -94,6 +96,9 @@ def fakeNewsAnalyse(url):
         fiability += 15
         fiability += 15 * len(linkTab)
 
+    for i in linkTab:
+        print(comparaisonTexte(url, linkTab[i]))
+
     if site_reconnu(url) or fiability > 99:
         fiability = 99.99
 
@@ -120,6 +125,7 @@ def UrlAnalyse(url):
         print("UrlAnalyse : not ok")
         return False
 
+
 def delHeaderFooter(url):
     sourceCode = str(getSourceCode(url))
     sourceCode = sourceCode.split("</header>")
@@ -128,14 +134,17 @@ def delHeaderFooter(url):
     sourceCode = str(sourceCode[0])
     return sourceCode
 
+
 def delBalise(sourceCode):
-     sourceCode = regex.sub('<.+?>', '', sourceCode)
-     return sourceCode
+    sourceCode = regex.sub('<.+?>', '', sourceCode)
+    return sourceCode
+
 
 def writeTxt(nom, sourceCode):
     file = open(nom + ".txt", "w+")
     file.write(sourceCode)
     file.close()
+
 
 def readtxt(nom):
     file = open(nom + ".txt", "r")
@@ -145,9 +154,11 @@ def readtxt(nom):
         contenu = line.split()
     return contenu
 
+
 sourcecode = delHeaderFooter("https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/")
 writeTxt("sourcecode1", delBalise(sourcecode))
 listeMots = readtxt("sourcecode1")
+
 
 def MotsClés(listeMots):
     motsClés = []
@@ -156,7 +167,8 @@ def MotsClés(listeMots):
             motsClés.append(mot)
     return motsClés
 
-def comparaisonTexte(Url1, Url2 ):
+
+def comparaisonTexte(Url1, Url2):
     sourceCode1 = delBalise(delHeaderFooter(Url1))
     sourceCode2 = delBalise(delHeaderFooter(Url2))
     writeTxt("sourcecode1", delBalise(sourceCode1))
@@ -170,21 +182,9 @@ def comparaisonTexte(Url1, Url2 ):
         for mot2 in listeMots2:
             if mot == mot2:
                 cpt += 1
-    reponse = "Le premier texte de l'article contient {len1} mots et le deuxième contient {len2} mots. Il y a {cpt} itérations de mots clés.".format(len1 = len(listeMots1), len2 = len(listeMots2), cpt = cpt)
+    reponse = "Le premier texte de l'article contient {len1} mots et le deuxième contient {len2} mots. Il y a {cpt} itérations de mots clés.".format(
+        len1=len(listeMots1), len2=len(listeMots2), cpt=cpt)
     return reponse
-
-print(comparaisonTexte("https://www.francetvinfo.fr/monde/europe/manifestations-en-ukraine/direct-guerre-en-ukraine-l-onu-juge-credibles-les-accusations-d-enfants-transferes-de-force-en-russie-moscou-denonce-une-legende_5349115.html", "https://www.20minutes.fr/monde/3347107-20220907-guerre-ukraine-direct-malgre-rapport-inquietant-aiea-tirs-visent-encore-centrale-zaporojie"))
-
-
-
-
-
-
-
-
-
-
-
 
 
 def AuthorAnalyse(code):
