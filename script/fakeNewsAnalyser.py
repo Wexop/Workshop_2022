@@ -155,9 +155,6 @@ def readtxt(nom):
     return contenu
 
 
-sourcecode = delHeaderFooter("https://thewebdev.info/2022/04/03/how-to-pass-variables-from-python-flask-to-javascript/")
-writeTxt("sourcecode1", delBalise(sourcecode))
-listeMots = readtxt("sourcecode1")
 
 
 def MotsClés(listeMots):
