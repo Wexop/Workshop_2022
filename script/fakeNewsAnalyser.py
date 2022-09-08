@@ -93,10 +93,10 @@ def fakeNewsAnalyse(url):
 
     if len(linkTab) > 0:
         fiability += 15
-        fiability += 15 * len(linkTab)
+        fiability += 10 * len(linkTab)
 
     for i in linkTab:
-        print(comparaisonTexte(url, i))
+        fiability += int( comparaisonTexte(url, i) )
 
     if site_reconnu(url) or fiability > 99:
         fiability = 99.99
@@ -174,13 +174,19 @@ def comparaisonTexte(Url1, Url2):
     listeMots1 = MotsClés(listeMots1)
     listeMots2 = MotsClés(listeMots2)
     cpt = 0
+    motCompare = []
     for mot in listeMots1:
         for mot2 in listeMots2:
-            if mot == mot2:
+            if mot == mot2 and mot not in motCompare:
                 cpt += 1
-    reponse = "Le premier texte de l'article contient {len1} mots et le deuxième contient {len2} mots. Il y a {cpt} itérations de mots clés.".format(
-        len1=len(listeMots1), len2=len(listeMots2), cpt=cpt)
-    return reponse
+                motCompare.append(mot)
+    len1 = len(listeMots1)
+    len2 = len(listeMots2)
+    pourcentage = cpt * 100 / len1
+    reponse = "Le premier texte de l'article contient {len1} mots et le deuxième contient {len2} mots. Il y a {cpt} mots clés similaires. pourcentage = {pourcentage}".format(
+        len1 = len1, len2 = len2, cpt=cpt, pourcentage = pourcentage)
+
+    return pourcentage
 
 
 def AuthorAnalyse(code):
@@ -222,5 +228,4 @@ def site_fiable(url):
             return True
 
 
-fakeNewsAnalyse(
-    'https://www.lemonde.fr/politique/article/2022/09/08/emmanuel-macron-annonce-le-lancement-d-une-grande-consultation-en-ligne-dans-le-cadre-du-conseil-national-de-la-refondation_6140686_823448.html')
+fakeNewsAnalyse('https://www.leparisien.fr/societe/boire-du-vin-protege-t-il-contre-le-covid-19-05-02-2021-8423420.php')
