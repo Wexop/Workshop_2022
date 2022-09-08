@@ -88,7 +88,7 @@ def fakeNewsAnalyse(url):
 
     if len(linkTab) > 0:
         fiability += 30
-        fiability += 5 * len(linkTab)
+        fiability += 10 * len(linkTab)
 
     if site_reconnu(url) or fiability > 99:
         fiability = 99.99
