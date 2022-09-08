@@ -4,6 +4,20 @@ var callBackGetSuccess =function fakeDetector(data) {
     document.getElementById("linkIsSafe").innerText = "Link is safe : " + data.info.urlIsSafe
     document.getElementById("authorFound").innerText = "Author found : " + data.info.authorFound
     document.getElementById("authorLink").innerText = "Author have a link : " + data.info.authorLink
+    document.getElementById("subjectFound").innerText = "Subject found : " + data.info.subjectFound
+
+
+    const divContent = []
+
+    for(let i = 0; i < data.info.webLink.length; i++){
+        const balise = '<a class="link" target="_blank" href= "' + data.info.webLink[i] + '" > lien ' + (i+1) + ' </a>'
+        divContent.push(balise)
+    }
+    document.getElementById("allLinks").innerHTML = "Link related : "
+    for(let i = 0; i < divContent.length; i++){
+        document.getElementById("allLinks").innerHTML += '</br>' + divContent[i]
+    }
+
 
 }
 
