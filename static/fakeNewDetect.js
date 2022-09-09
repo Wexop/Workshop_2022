@@ -13,8 +13,8 @@ var callBackGetSuccess =function fakeDetector(data) {
         const balise = '<a class="link" target="_blank" href= "' + data.info.webLink[i] + '" > lien ' + (i+1) +  ' : ' + data.info.webLink[i] +' </a>'
         divContent.push(balise)
     }
-    document.getElementById("allLinks").innerHTML = "Liens trouvé sur des sites fiables en rapport avec l'article : "
-    document.getElementById("allLinks").innerHTML += '</br>'
+    document.getElementById("allLinks").innerHTML = "Liens trouvé sur des sites fiables en rapport avec l'article :  "
+    document.getElementById("allLinks").innerHTML += '</br> </br>'
     for(let i = 0; i < divContent.length; i++){
         document.getElementById("allLinks").innerHTML += divContent[i] + '<hr>'
     }
